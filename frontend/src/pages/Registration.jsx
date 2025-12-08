@@ -13,7 +13,7 @@ import { auth, provider } from "../utils/firebase";
 import { userDataContext } from "../context/UserContext";
 
 const Registration = () => {
-  const primaryColor = "#ff4d2d";
+  const primaryColor = "#6a5acd ";
   const hoverColor = "#e64323";
   const bgColor = "#fff9f6";
   const borderColor = "#ddd";
@@ -76,8 +76,8 @@ const Registration = () => {
   }
   return (
     <div
-      className={`min-h-screen flex items-center justify-center p-4 w-full `}
-      style={{ backgroundColor: `${bgColor}` }}
+      className={`min-h-screen flex items-center justify-center p-4 w-full bg-linear-to-l from-[#141414] to-[#0c2025] `}
+      
     >
       <div
         className={`bg-white rounded-xl shadow-lg w-full max-w-md p-8 border border-[${borderColor}] `}
@@ -170,7 +170,7 @@ const Registration = () => {
 
         
         
-        <button disabled={loading} onClick={(e) =>handleSignup(e)} className="w-full font-semibold py-2 rounded-lg transition duration-200 cursor-pointer bg-[#ff4d2d] text-white hover:bg-[#ca4429]">
+        <button disabled={loading} onClick={(e) =>handleSignup(e)} className="w-full font-semibold py-2 rounded-lg transition duration-200 cursor-pointer bg-[#6a5acd] text-white hover:bg-[#4938bc]">
          { loading ? <ClipLoader className="w-10 h-10 " size={20} color="white"/>: "Sign Up"}
         </button>
         <button onClick={(e)=>googleSignup(e)}  className="w-full mt-4 flex items-center justify-center gap-2 border rounded-lg px-4 py-2 transition duration-200 border-gray-200 hover:bg-gray-200 cursor-pointer">
@@ -181,7 +181,7 @@ const Registration = () => {
           Already have an account ?{" "}
           <span
             onClick={() => navigate("/login")}
-            className="text-[#ff4d2d] font-semibold cursor-pointer"
+            className="text-[#6a5acd] font-semibold cursor-pointer"
           >
             Sign In
           </span>

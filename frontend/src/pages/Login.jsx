@@ -13,7 +13,7 @@ import { signInWithPopup } from "firebase/auth";
 import { userDataContext } from "../context/UserContext";
 
 const Login = () => {
-  const primaryColor = "#ff4d2d";
+  const primaryColor = "#6a5acd ";
   const hoverColor = "#e64323";
   const bgColor = "#fff9f6";
   const borderColor = "#ddd";
@@ -57,7 +57,7 @@ const Login = () => {
       let email = user.email;
       const result = await axios.post(serverUrl+"/api/auth/googlelogin",{email,name},{withCredentials:true});
       console.log(result.data);
-      getCurrentUser();
+      getCurrentUser
       setLoading2(false);
       toast.success("Login Successfull !!");
       navigate("/");
@@ -68,8 +68,8 @@ const Login = () => {
   }
   return (
     <div
-      className={`min-h-screen flex items-center justify-center p-4 w-full `}
-      style={{ backgroundColor: `${bgColor}` }}
+      className={`min-h-screen flex items-center justify-center p-4 w-full bg-linear-to-l from-[#141414] to-[#0c2025] `}
+      
     >
       <div
         className={`bg-white rounded-xl shadow-lg w-full max-w-md p-8 border border-[${borderColor}] `}
@@ -143,7 +143,7 @@ const Login = () => {
 
         
         
-        <button disabled={loading} onClick={(e)=> handleSignIn(e)} className="w-full font-semibold py-2 rounded-lg transition duration-200 cursor-pointer bg-[#ff4d2d] text-white hover:bg-[#ca4429]">
+        <button disabled={loading} onClick={(e)=> handleSignIn(e)} className="w-full font-semibold py-2 rounded-lg transition duration-200 cursor-pointer bg-[#6a5acd] text-white hover:bg-[#4938bc]">
          { loading ? <ClipLoader size={20} color="white"/>: "Sign In"}
         </button>
         <button onClick={(e)=> googleLogin(e)}  className="w-full mt-4 flex items-center justify-center gap-2 border rounded-lg px-4 py-2 transition duration-200 border-gray-200 hover:bg-gray-200 cursor-pointer">
@@ -154,7 +154,7 @@ const Login = () => {
           Want to create an account ?{" "}
           <span
             onClick={() => navigate("/signup")}
-            className="text-[#ff4d2d] font-semibold cursor-pointer"
+            className="text-[#6a5acd] font-semibold cursor-pointer"
           >
             Sign up
           </span>
