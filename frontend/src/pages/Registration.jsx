@@ -8,6 +8,8 @@ import { ClipLoader } from "react-spinners";
 import { authDataContext } from "../context/authContext";
 import  axios  from 'axios';
 import { toast } from "react-toastify";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../utils/firebase";
 
 const Registration = () => {
   const primaryColor = "#ff4d2d";
@@ -51,7 +53,19 @@ const Registration = () => {
   }
 
   // google signup 
-
+  const googleSignup = async (e)=>{
+    e.preventDefault();
+    try {
+      const response = await signInWithPopup(auth,provider);
+      // console.log(response);
+      let user = response.user;
+      let name = user.displayName;
+      let email = user.email;
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
 
   return (
     <div
@@ -152,7 +166,7 @@ const Registration = () => {
         <button disabled={loading} onClick={(e) =>handleSignup(e)} className="w-full font-semibold py-2 rounded-lg transition duration-200 cursor-pointer bg-[#ff4d2d] text-white hover:bg-[#ca4429]">
          { loading ? <ClipLoader className="w-10 h-10 " size={20} color="white"/>: "Sign Up"}
         </button>
-        <button  className="w-full mt-4 flex items-center justify-center gap-2 border rounded-lg px-4 py-2 transition duration-200 border-gray-200 hover:bg-gray-200 cursor-pointer">
+        <button onClick={(e)=>googleSignup(e)}  className="w-full mt-4 flex items-center justify-center gap-2 border rounded-lg px-4 py-2 transition duration-200 border-gray-200 hover:bg-gray-200 cursor-pointer">
           {loading2 ? <ClipLoader size={20} color="black"/>:<div className='flex items-center justify-center gap-3'><FcGoogle size={20} />
             <span>Sign Up with Google</span></div>}
         </button>
