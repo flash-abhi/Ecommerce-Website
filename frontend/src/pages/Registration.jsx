@@ -10,6 +10,7 @@ import  axios  from 'axios';
 import { toast } from "react-toastify";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../utils/firebase";
+import { userDataContext } from "../context/UserContext";
 
 const Registration = () => {
   const primaryColor = "#ff4d2d";
@@ -26,13 +27,13 @@ const Registration = () => {
   const [loading,setLoading] = useState(false);
   const [loading2,setLoading2] = useState(false);
   const {serverUrl} = useContext(authDataContext);
-
+  const {getCurrentUser} = useContext(userDataContext);
   // handle Signup
   const handleSignup = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-        const result = await axios.post("http://localhost:8000/api/auth/registration",{
+        const result = await axios.post(serverUrl+"/api/auth/registration",{
             name:fullName,
             email,
             password
@@ -42,9 +43,9 @@ const Registration = () => {
         setPassword('');
         setFullName("");
         setLoading(false);
-        navigate("/login");
-
+        getCurrentUser();
         toast.success("Sign Up Successfull !!");
+        navigate("/login");
     } catch (error) {
         console.log(error);
         toast.error("Signup Failed");
@@ -54,6 +55,7 @@ const Registration = () => {
 
   // google signup 
   const googleSignup = async (e)=>{
+    setLoading2(true);
     e.preventDefault();
     try {
       const response = await signInWithPopup(auth,provider);
@@ -61,12 +63,17 @@ const Registration = () => {
       let user = response.user;
       let name = user.displayName;
       let email = user.email;
+      const result = await axios.post(serverUrl+"/api/auth/googlelogin",{email,name},{withCredentials:true});
+      console.log(result.data);
+      setLoading2(false);
+      getCurrentUser();
+      toast.success("Signup Successfull !!");
+      navigate("/");
     } catch (error) {
       console.log(error);
-      
+      setLoading2(false);
     }
   }
-
   return (
     <div
       className={`min-h-screen flex items-center justify-center p-4 w-full `}

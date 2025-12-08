@@ -19,11 +19,11 @@ export const  Register = async (req,res) => {
         const user = await User.create({name,email,password:hashPassword});
         let token = await genToken(user._id);
         res.cookie("token",token,{
-            httpOnly:true,
-            secure:false,
-            sameSite:"Strict",
-            maxAge: 7*24*60*60*1000
-        });
+            secure: false,
+            sameSite: "Strict",
+            maxAge: 7*24*60*60*1000,
+            httpOnly: true
+         })
         res.status(200).json(user);
     } catch (error) {
         console.log("signup error !!");
@@ -41,14 +41,15 @@ export const login = async(req,res) =>{
         if(!isMatch){
             return res.status(400).json({message: "Incorrect Password"});
         }
-        let token = genToken(user._id);
+        let token = await genToken(user._id);
+        // console.log(token);
         res.cookie("token",token,{
-            httpOnly:true,
             secure: false,
             sameSite: "Strict",
-            maxAge: 7*24*60*60*1000
-        });
-        res.status(200).json({message: "Login Successfull",user});
+            maxAge: 7*24*60*60*1000,
+            httpOnly: true
+         })
+        res.status(200).json({message: "Login Successfull",user,token});
     } catch (error) {
         console.log("Login Error !!");
         res.status(500).json({message:`Login Error : ${error}`});
@@ -68,19 +69,23 @@ export const logout = async(req,res)=>{
 export const googleLogin = async (req,res) => {
     try {
         let {name,email} = req.body;
+        console.log(name,email);
+        
         const user = await User.findOne({email});
         if(!user){
              user = await User.create({name,email});
         }
-
-        let token = genToken(user._id);
+        
+        let token = await genToken(user._id);
         res.cookie("token",token,{
             httpOnly:true,
             secure: false,
-            sameSite: "Strict",
+            sameSite: "None",
             maxAge: 7*24*60*60*1000
         });
+        res.status(200).json(user);
     } catch (error) {
-        
+        console.log("Google Auth Error !!");
+        res.status(500).json({message:`Google Auth Error : ${error}`});
     }
 }

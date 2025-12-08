@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { authDataContext } from "../context/authContext";
 import { toast } from "react-toastify";
+import { auth, provider } from "../utils/firebase";
+import { signInWithPopup } from "firebase/auth";
+import { userDataContext } from "../context/UserContext";
 
 const Login = () => {
   const primaryColor = "#ff4d2d";
@@ -22,6 +25,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [loading,setLoading] = useState(false);
   const [loading2,setLoading2] = useState(false);
+  const {getCurrentUser} = useContext(userDataContext);
 
   let {serverUrl} = useContext(authDataContext);
   const handleSignIn = async (e)=> {
@@ -32,6 +36,7 @@ const Login = () => {
       toast.success("Login Successfull");
       setEmail("");
       setPassword("");
+      getCurrentUser();
       navigate("/");
       setLoading(false);
     } catch (error) {
@@ -40,7 +45,27 @@ const Login = () => {
       setLoading(false);
     }
   }
-  
+  // google login
+  const googleLogin = async (e)=>{
+    setLoading2(true);
+    e.preventDefault();
+    try {
+      const response = await signInWithPopup(auth,provider);
+      // console.log(response);
+      let user = response.user;
+      let name = user.displayName;
+      let email = user.email;
+      const result = await axios.post(serverUrl+"/api/auth/googlelogin",{email,name},{withCredentials:true});
+      console.log(result.data);
+      getCurrentUser();
+      setLoading2(false);
+      toast.success("Login Successfull !!");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      setLoading2(false);
+    }
+  }
   return (
     <div
       className={`min-h-screen flex items-center justify-center p-4 w-full `}
@@ -121,7 +146,7 @@ const Login = () => {
         <button disabled={loading} onClick={(e)=> handleSignIn(e)} className="w-full font-semibold py-2 rounded-lg transition duration-200 cursor-pointer bg-[#ff4d2d] text-white hover:bg-[#ca4429]">
          { loading ? <ClipLoader size={20} color="white"/>: "Sign In"}
         </button>
-        <button  className="w-full mt-4 flex items-center justify-center gap-2 border rounded-lg px-4 py-2 transition duration-200 border-gray-200 hover:bg-gray-200 cursor-pointer">
+        <button onClick={(e)=> googleLogin(e)}  className="w-full mt-4 flex items-center justify-center gap-2 border rounded-lg px-4 py-2 transition duration-200 border-gray-200 hover:bg-gray-200 cursor-pointer">
           {loading2 ? <ClipLoader size={20} color="black"/>:<div className='flex items-center justify-center gap-3'><FcGoogle size={20} />
             <span>Sign In with Google</span></div>}
         </button>
@@ -139,4 +164,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;
