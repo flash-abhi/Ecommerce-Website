@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { MdShoppingCart } from "react-icons/md";
 import { userDataContext } from '../context/UserContext';
 import axios from 'axios';
+import logo from "../assets/logo.png"
 import { authDataContext } from '../context/authContext';
 import { toast } from 'react-toastify';
 const Navbar = () => {
@@ -34,7 +35,7 @@ const Navbar = () => {
   return (
     <div className='w-screen h-[70px] bg-[#b3cdcdec] z-10 fixed top-0 flex items-center justify-between px-[30px] shadow-md shadow-black'>
         <div onClick={() => navigate("/")} className='w-[250px] flex items-center justify-start gap-2.5 cursor-pointer'>
-            <LiaOpencart className='text-3xl text-[#000000c9]'/>
+            <img src={logo} className='w-10 h-10 text-[#000000c9]'/>
             <span className='text-3xl font-semibold text-[#000000c9]'>SmartCart</span>
         </div>
         <div className='w-[40%] hidden lg:flex'>
@@ -63,12 +64,11 @@ const Navbar = () => {
                 <li className='w-full hover:bg-[#2f2f2f] px-[15px] py-2.5 cursor-pointer'>About</li>
             </ul>
         </div>}
-        <div className='w-full h-[90px] flex items-center justify-between px-5 fixed bottom-0 left-0 bg-[#191818] lg:hidden'>
-            <button className='text-white flex items-center justify-center flex-col gap-0.5 cursor-pointer'><IoMdHome className="w-[30px] h-[30px] text-white lg:hidden"/>Home</button>
-            <button className='text-white flex items-center justify-center flex-col gap-0.5 cursor-pointer'><MdCollectionsBookmark className="w-[30px] h-[30px] text-white lg:hidden"/>Collections</button>
-            <button className='text-white flex items-center justify-center flex-col gap-0.5 cursor-pointer'><RiContactsFill className="w-[30px] h-[30px] text-white lg:hidden"/>Contact</button>
-            <button className='text-white flex items-center justify-center flex-col gap-0.5 cursor-pointer'><MdShoppingCart className="w-[30px] h-[30px] text-white lg:hidden"/>Cart</button>
-            
+        <div className='w-full h-[90px] flex items-center justify-between px-5 fixed bottom-0 left-0 bg-[#b3cdcdec] lg:hidden'>
+            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md' onClick={() => navigate("/")}><IoMdHome className="w-[25px]  h-[25px] text-[#000000c9] lg:hidden"/>Home</button>
+            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><MdCollectionsBookmark className="w-[25px]  h-[25px] text-[#000000c9] lg:hidden"/>Collections</button>
+            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><RiContactsFill className="w-[25px]  h-[25px] text-[#000000c9] lg:hidden"/>Contact</button>
+            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><MdShoppingCart className="w-[25px]  h-[25px] text-[#000000c9] lg:hidden"/>Cart</button>
         </div>
     </div>
   )
