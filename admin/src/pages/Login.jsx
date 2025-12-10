@@ -2,15 +2,12 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 
 import { ClipLoader } from "react-spinners";
-import { authDataContext } from "../context/authContext";
 import { toast } from "react-toastify";
-import { auth, provider } from "../utils/firebase";
-import { signInWithPopup } from "firebase/auth";
-import { userDataContext } from "../context/UserContext";
+import { authDataContext } from "../context/AuthContext";
+import { adminDataContext } from "../context/AdminContext";
 
 const Login = () => {
   const primaryColor = "#6a5acd ";
@@ -24,48 +21,29 @@ const Login = () => {
 
   const navigate = useNavigate();
   const [loading,setLoading] = useState(false);
-  const [loading2,setLoading2] = useState(false);
-  const {getCurrentUser} = useContext(userDataContext);
-
   let {serverUrl} = useContext(authDataContext);
+  let {adminData,setAdminData,getAdmin} = useContext(adminDataContext);
+  // console.log(serverUrl);
   const handleSignIn = async (e)=> {
     e.preventDefault();
     setLoading(true);
     try {
-      const result = await axios.post(serverUrl+"/api/auth/login",{email,password},{withCredentials:true});
+      console.log("started")
+      const result = await axios.post(serverUrl+"/api/auth/adminlogin",{email,password},{withCredentials:true});
+      getAdmin();
       toast.success("Login Successfull");
+      console.log(result);
       setEmail("");
       setPassword("");
-      getCurrentUser();
       navigate("/");
       setLoading(false);
     } catch (error) {
       console.log(error);
-      toast.error("Login Error");
+      toast.error("Admin Login Error");
       setLoading(false);
     }
   }
-  // google login
-  const googleLogin = async (e)=>{
-    setLoading2(true);
-    e.preventDefault();
-    try {
-      const response = await signInWithPopup(auth,provider);
-      // console.log(response);
-      let user = response.user;
-      let name = user.displayName;
-      let email = user.email;
-      const result = await axios.post(serverUrl+"/api/auth/googlelogin",{email,name},{withCredentials:true});
-      console.log(result.data);
-      getCurrentUser
-      setLoading2(false);
-      toast.success("Login Successfull !!");
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-      setLoading2(false);
-    }
-  }
+  
   return (
     <div
       className={`min-h-screen flex items-center justify-center p-4 w-full bg-linear-to-l from-[#141414] to-[#0c2025] `}
@@ -84,7 +62,7 @@ const Login = () => {
           Smart Cart
         </h1>
         <p className="text-gray-500 mb-6">
-          Signin your account to get started with Awesome item ordering{" "}
+          Signin your account to add the New products{" "}
         </p>
         
         {/* error message */}
@@ -146,19 +124,6 @@ const Login = () => {
         <button disabled={loading} onClick={(e)=> handleSignIn(e)} className="w-full font-semibold py-2 rounded-lg transition duration-200 cursor-pointer bg-[#6a5acd] text-white hover:bg-[#4938bc]">
          { loading ? <ClipLoader size={20} color="white"/>: "Sign In"}
         </button>
-        <button onClick={(e)=> googleLogin(e)}  className="w-full mt-4 flex items-center justify-center gap-2 border rounded-lg px-4 py-2 transition duration-200 border-gray-200 hover:bg-gray-200 cursor-pointer">
-          {loading2 ? <ClipLoader size={20} color="black"/>:<div className='flex items-center justify-center gap-3'><FcGoogle size={20} />
-            <span>Sign In with Google</span></div>}
-        </button>
-        <p className="text-center text-gray-700 mt-4">
-          Want to create an account ?{" "}
-          <span
-            onClick={() => navigate("/signup")}
-            className="text-[#6a5acd] font-semibold cursor-pointer"
-          >
-            Sign up
-          </span>
-        </p>
       </div>
     </div>
   )

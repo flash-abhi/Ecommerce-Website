@@ -160,7 +160,7 @@ const Registration = () => {
               className="absolute top-3 right-3 cursor-pointer"
             >
               {showPassword ? (
-                <FaRegEye className="text-orange-600 text-[20px] " />
+                <FaRegEye className="text-[#6a5acd] text-[20px] " />
               ) : (
                 <FaRegEyeSlash className="text-gray-600 text-[20px]" />
               )}

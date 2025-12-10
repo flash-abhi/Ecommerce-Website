@@ -1,7 +1,7 @@
 import User from "../model/userModel.js";
 import validator from "validator"
 import bcrypt from "bcryptjs"
-import { genToken } from "../config/token.js";
+import { genToken, genToken1 } from "../config/token.js";
 export const  Register = async (req,res) => {
     try {
         const {name,email,password} = req.body;
@@ -20,7 +20,7 @@ export const  Register = async (req,res) => {
         let token = await genToken(user._id);
         res.cookie("token",token,{
             secure: false,
-            sameSite: "Strict",
+            sameSite: "Lax",
             maxAge: 7*24*60*60*1000,
             httpOnly: true
          })
@@ -45,7 +45,7 @@ export const login = async(req,res) =>{
         // console.log(token);
         res.cookie("token",token,{
             secure: false,
-            sameSite: "Strict",
+            sameSite: "Lax",
             maxAge: 7*24*60*60*1000,
             httpOnly: true
          })
@@ -80,12 +80,32 @@ export const googleLogin = async (req,res) => {
         res.cookie("token",token,{
             httpOnly:true,
             secure: false,
-            sameSite: "None",
+            sameSite: "Lax",
             maxAge: 7*24*60*60*1000
         });
         res.status(200).json(user);
     } catch (error) {
         console.log("Google Auth Error !!");
         res.status(500).json({message:`Google Auth Error : ${error}`});
+    }
+}
+
+export const adminLogin = async (req,res)=>{
+    try {
+        let {email,password} = req.body;
+        if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
+            let token = await genToken1(email);
+        res.cookie("token",token,{
+            httpOnly:true,
+            secure: false,
+            sameSite: "Lax",
+            maxAge: 1*24*60*60*1000
+        });
+        return res.status(200).json(token);
+        }
+        return res.status(400).json({message: "Invalid Credentials"});
+    } catch (error) {
+        console.log("Admin Login Error : ",error);
+        return res.status(500).json({message: "Admin Login Error !!"});
     }
 }
