@@ -39,7 +39,7 @@ const Login = () => {
       setLoading(false);
     } catch (error) {
       console.log(error);
-      toast.error("Admin Login Error");
+      toast.error("Admin Login Failed");
       setLoading(false);
     }
   }

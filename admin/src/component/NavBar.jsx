@@ -15,8 +15,8 @@ const NavBar = () => {
       const result = await axios.get(serverUrl+"/api/auth/logout",{withCredentials:true});
       console.log(result.data);
       toast.success("logout successfull !!");
+      getAdmin();
       navigate('/login');
-      // getAdmin();
     } catch (error) {
       console.log(error);
       toast.error("logout failed !!");
@@ -30,7 +30,7 @@ const NavBar = () => {
         </div>
         <button onClick={(e)=>logout(e)} className='text-[15px] hover:border border-[#89daea] cursor-pointer bg-[#000000ca] py-2.5 px-5 rounded-2xl text-white'>
               Logout
-            </button>
+        </button>
     </div>
   )
 }

@@ -14,13 +14,14 @@ const App = () => {
   return (
     <>
     <ToastContainer/>
-    <Routes>
+
+    {!adminData ? <Login/>: <><Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/add' element={<AddProduct/>}/>
       <Route path='/lists' element={<Lists/>}/>
       <Route path='/orders' element={<Orders/>}/>
-      <Route path='/login' element={!adminData? <Login/>: <Home/>}/>
-    </Routes>
+      <Route path='/login' element={<Login/>}/>
+    </Routes></>}
     </>
   )
 }
