@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import NavBar from '../component/NavBar'
+import NavBar from "../component/NavBar"
 import SideBar from '../component/SideBar'
 import upload from '../assets/upload.jpg'
 import { authDataContext } from '../context/AuthContext'

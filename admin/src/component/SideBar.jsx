@@ -12,7 +12,7 @@ const SideBar = () => {
             <IoAddCircleOutline className='w-7 h-7 md:w-6 md:h-6'/>
             <p className='hidden md:block'>Add items </p>
         </div>
-        <div onClick={() => navigate("/list")} className='flex flex-items-center justify-center md:justify-start gap-3 border border-gray-200 border-r-0 px-3 py-2 cursor-pointer hover:bg-[#2c7b89]'>
+        <div onClick={() => navigate("/lists")} className='flex flex-items-center justify-center md:justify-start gap-3 border border-gray-200 border-r-0 px-3 py-2 cursor-pointer hover:bg-[#2c7b89]'>
             <FaListUl  className='w-6 h-6 md:w-5 md:h-5'/>
             <p className='hidden md:block'>List items </p>
         </div>
