@@ -25,6 +25,7 @@ const Navbar = () => {
             const result = await axios.get(serverUrl+"/api/auth/logout",{withCredentials:true});
             toast.success("Logout Successfull !!");
             getCurrentUser();
+            navigate("/login");
             setShowProfile(false)
             
         } catch (error) {
@@ -40,10 +41,10 @@ const Navbar = () => {
         </div>
         <div className='w-[40%] hidden lg:flex'>
             <ul className='flex items-center justify-center gap-[19px] text-[#faf1f1]'>
-                <li className='tex-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-2.5 px-5 rounded-2xl'>HOME</li>
-                <li className='tex-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-2.5 px-5 rounded-2xl'>COLLECTIONS</li>
-                <li className='tex-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-2.5 px-5 rounded-2xl'>ABOUT</li>
-                <li className='tex-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-2.5 px-5 rounded-2xl'>CONTACT</li>
+                <li className='tex-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-2.5 px-5 rounded-2xl'onClick={() => navigate("/")}>HOME</li>
+                <li className='tex-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-2.5 px-5 rounded-2xl' onClick={() => navigate("/collection")}>COLLECTIONS</li>
+                <li className='tex-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-2.5 px-5 rounded-2xl'onClick={()=> navigate("/about")}>ABOUT</li>
+                <li className='tex-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-2.5 px-5 rounded-2xl' onClick={() => navigate("/contact")}>CONTACT</li>
             </ul>
         </div>
         <div className='w-[30%] flex items-center justify-end gap-5'>
@@ -54,21 +55,22 @@ const Navbar = () => {
             <p className='absolute hidden md:block w-[18px] h-[18px] items-center  justify-center bg-black px-[5px] py-0.5 text-[#f7e8e8] rounded-full text-[9px] top-2.5 right-[23px]'>10</p>
         </div>
         {showSearch && <div className='w-full h-20 bg-[#d8f6f9dd] absolute top-full left-0 right-0 flex items-center justify-center'>
-            <input placeholder='Search Here' type="text" className='w-[50%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]'/>
+            <input placeholder='Search Here' type="text" className='lg:w-[50%] w-[90%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]'/>
         </div>}
         {showProfile && <div className='absolute w-[220px] h-[150px] bg-[#000000d7] top-[110%] right-[4%] border border-[#aaa9a9] rounded-[10px] z-10'>
             <ul className='w-full h-full flex items-start justify-around flex-col text-[17px] py-2.5 text-white'>
                 {!userData && <li className='w-full hover:bg-[#2f2f2f] px-[15px] py-2.5 cursor-pointer' onClick={()=>{ navigate("/login");setShowProfile(false)}}>Login</li>}
                 {userData && <li className='w-full hover:bg-[#2f2f2f] px-[15px] py-2.5 cursor-pointer' onClick={handleLogout}>Logout</li>}
                 <li className='w-full hover:bg-[#2f2f2f] px-[15px] py-2.5 cursor-pointer'>Orders</li>
-                <li className='w-full hover:bg-[#2f2f2f] px-[15px] py-2.5 cursor-pointer'>About</li>
+                <li className='w-full hover:bg-[#2f2f2f] px-[15px] py-2.5 cursor-pointer'onClick={() => navigate("/about")}>About</li>
             </ul>
         </div>}
         <div className='w-full h-[90px] flex items-center justify-between px-5 fixed bottom-0 left-0 bg-[#b3cdcdec] lg:hidden'>
-            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md' onClick={() => navigate("/")}><IoMdHome className="w-[25px]  h-[25px] text-[#000000c9] lg:hidden"/>Home</button>
-            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><MdCollectionsBookmark className="w-[25px]  h-[25px] text-[#000000c9] lg:hidden"/>Collections</button>
-            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><RiContactsFill className="w-[25px]  h-[25px] text-[#000000c9] lg:hidden"/>Contact</button>
-            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><MdShoppingCart className="w-[25px]  h-[25px] text-[#000000c9] lg:hidden"/>Cart</button>
+            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md' onClick={() => navigate("/")}><IoMdHome className="w-7  h-7 text-[#000000c9] lg:hidden" onClick={() => navigate("/")}/>Home</button>
+            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><MdCollectionsBookmark className="w-7  h-7 text-[#000000c9] lg:hidden"onClick={() => navigate("/collection")}/>Collections</button>
+            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><RiContactsFill className="w-7  h-7 text-[#000000c9] lg:hidden" onClick={()=> navigate("/contact")}/>Contact</button>
+            <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><MdShoppingCart className="w-7  h-7 text-[#000000c9] lg:hidden"/>Cart</button>
+            <p className='absolute w-[18px] h-[18px] flex items-center justify-center bg-white px-[5px] py-0.2 text-black font-semibold rounded-full text-[9px] top-2 right-[18px]'>10</p>
         </div>
     </div>
   )
