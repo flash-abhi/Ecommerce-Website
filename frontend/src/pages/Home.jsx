@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import Background from "../components/Background";
 import Hero from "../components/Hero";
 import Product from "./Product";
+import OurPolicy from "../components/OurPolicy";
+import NewsLetterBox from "../components/NewsLetterBox";
+import Footer from "../components/Footer";
 
 const Home = () => {
   let heroData = [
@@ -13,12 +16,12 @@ const Home = () => {
   let [heroCount,setHeroCount] = useState(0);
   useEffect(() => {
     let interval = setInterval(()=> {
-        setHeroCount(prevCount => (prevCount === 3 ? 0: prevCount +1));
+        setHeroCount(prevCount => (prevCount === 1 ? 0: prevCount +1));
     },3000);
   },[]);
   return (
-    <div className="overflow-x-hidden relative top-[70px]">
-    <div className='w-screen md:h-[60vh] sm:h-[30vh] lg:h-screen bg-linear-to-l from-[#141414] to-[#0c2025]'>
+    <div className="overflow-x-hidden relative">
+    <div className='w-screen md:h-[70vh] h-[60vh] mt-[70px] lg:h-[90vh] bg-linear-to-l from-[#141414] to-[#0c2025]'>
         <Background heroCount={heroCount}/>
         <Hero heroCount={heroCount}
         setHeroCount={setHeroCount} 
@@ -26,6 +29,11 @@ const Home = () => {
         />
     </div>
     <Product/>
+    <OurPolicy/>
+    <NewsLetterBox/>
+    {/* <div className="h-[250px] lg:h-[180px] bg-[#dbfcfcec] lg:mb-0">  */}
+    <Footer/>
+    {/* </div> */}
     </div>
   )
 }

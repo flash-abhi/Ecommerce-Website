@@ -6,13 +6,9 @@ import banner4 from "../assets/back4.jpg";
 const Background = ({heroCount}) => {
   
     if(heroCount === 0){
-        return <img src={banner1} alt="" className='w-full h-full float-left overflow-auto object-contain' />
-    }else if(heroCount === 1){
         return <img src={banner2} alt="" className='w-full h-full float-left overflow-auto object-cover' />
-    }else if(heroCount === 2){
+    }else if(heroCount === 1){
         return <img src={banner3} alt="" className='w-full h-full float-left overflow-auto object-cover' />
-    }else if(heroCount === 3){
-        return <img src={banner4} alt="" className='w-full h-full float-left overflow-auto object-contain' />
 
     }
 }
