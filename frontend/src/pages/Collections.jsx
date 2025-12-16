@@ -6,8 +6,8 @@ import { shopDataContext } from './../context/ShopContext';
 import ProductCard from './../components/ProductCard';
 
 const Collections = () => {
-  const {products} = useContext(shopDataContext);
-  
+  const {products,search,showSearch,} = useContext(shopDataContext);
+
   const [filterProduct,setFilterProduct] = React.useState(products);
   const [category,setCategory] = React.useState([]);
   const [subCategory,setSubCategory] = React.useState([]);
@@ -29,9 +29,13 @@ const Collections = () => {
   }
   const applyFilters = () => {
     let productCopy = [...products];
+    if(showSearch && search){
+      productCopy = productCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
+    }
     if(category.length>0){
       productCopy = productCopy.filter(item => category.includes(item.category));
     }
+    
     if(subCategory.length>0){
       productCopy = productCopy.filter(item => category.includes(item.subCategory));
     }
@@ -59,14 +63,14 @@ const Collections = () => {
   },[products]);
   useEffect(() => {
     applyFilters();
-  },[category,subCategory])
+  },[category,subCategory,search,showSearch])
   return (
-    <div className='w-full min-h-screen bg-linear-to-l from-[#141414] to-[#0c2025] flex items-start flex-col md:flex-row justify-start pt-[70px] overflow-x-hidden z-2'>
-      <div className={`md:w-[30vw] ${showFilter ? "h-[50vh]":"h-[8vh]"} lg:w-[20vw] w-screen md:min-h-screen p-5 border-r border-gray-400 text-[#aaf5fa] lg:fixed`}>
+    <div className='w-full min-h-screen bg-linear-to-l from-[#141414] to-[#0c2025] flex items-start flex-col md:flex-row justify-start pt-[70px] overflow-x-hidden z-2 pb-[100px]'>
+      <div className={`md:w-[30vw] ${showFilter ? "h-[60vh]":"h-[8vh]"} lg:w-[20vw] w-screen md:min-h-screen p-5 border-r border-gray-400 text-[#aaf5fa] lg:fixed`}>
         <p onClick={()=> setShowFilter(prev => !prev)} className='text-[25px] cursor-pointer font-semibold flex gap-[5px] items-center justify-start'>
           FILTERS {!showFilter?<FaCaretRight className='text-[18px] md:hidden'/>:<FaCaretDown className='text-[18px] md:hidden'/>}
         </p>
-        <div className={`border-2 border-[#dedcdc] pl-5 py-3 mt-6 rounded-md bg-slate-600 ${showFilter ? "":"hidden"} md:block`}>
+        <div className={`border-2 w-[80%] border-[#dedcdc] pl-5 py-3 mt-6 rounded-md bg-slate-600 ${showFilter ? "":"hidden"} md:block`}>
           <p className='text-[18px] text-[#f8fafa] '>CATEGORIES</p>
           <div className='w-[230px] h-[100px] flex items-start justify-center gap-2 flex-col'>
             <p className='flex items-center justify-center gap-2.5 text-[16px] font-light'><input onChange={(e) => toggleCategory(e)} id='' value={"Men"} className='w-3' type='checkbox'/>Men</p>
@@ -74,7 +78,7 @@ const Collections = () => {
             <p className='flex items-center justify-center gap-2.5 text-[16px] font-light'><input onChange={(e) => toggleCategory(e)} id='' value={"Kids"} className='w-3' type='checkbox'/>Kids</p>
           </div>
         </div>
-       <div className={`border-2 border-[#dedcdc] pl-5 py-3 mt-6 rounded-md bg-slate-600 ${showFilter ? "":"hidden"} md:block`}>
+       <div className={`border-2 w-[80%] border-[#dedcdc] pl-5 py-3 mt-6 rounded-md bg-slate-600 ${showFilter ? "":"hidden"} md:block`}>
           <p className='text-[18px] text-[#f8fafa] '>SUB-CATEGORIES</p>
           <div className='w-[230px] h-[100px] flex items-start justify-center gap-2 flex-col'>
             <p className='flex items-center justify-center gap-2.5 text-[16px] font-light'><input onChange={(e) => toggleSubCategory(e)} id='' value={"Topwear"} className='w-3' type='checkbox'/>Topwear</p>

@@ -12,13 +12,14 @@ import axios from 'axios';
 import logo from "../assets/logo.png"
 import { authDataContext } from '../context/authContext';
 import { toast } from 'react-toastify';
+import { shopDataContext } from '../context/ShopContext';
 const Navbar = () => {
     const navigate= useNavigate();
     let {userData,getCurrentUser} = useContext(userDataContext);
-    let [showSearch,setShowSearch] = useState(false);
+    // let [showSearch,setShowSearch] = useState(false);
     let [showProfile,setShowProfile] = useState(false);
     let {serverUrl} = useContext(authDataContext);
-    
+    let {showSearch,setShowSearch,search,setSearch}= useContext(shopDataContext)
     // handle Logout 
     const handleLogout = async () => {
         try {
@@ -48,14 +49,14 @@ const Navbar = () => {
             </ul>
         </div>
         <div className='w-[30%] flex items-center justify-end gap-5'>
-            {showSearch ?<IoSearchCircle onClick={() => setShowSearch(prev => !prev)} className='w-[38px] h-[38px] text-[#000000] cursor-pointer'/>:<IoSearchCircleOutline onClick={() => setShowSearch(prev => !prev)} className='w-[38px] h-[38px] text-[#000000] cursor-pointer'/>}
+            {showSearch ?<IoSearchCircle onClick={() => {setShowSearch(prev => !prev); navigate("collection")}} className='w-[38px] h-[38px] text-[#000000] cursor-pointer'/>:<IoSearchCircleOutline onClick={() => {setShowSearch(prev => !prev);navigate("/collection")}} className='w-[38px] h-[38px] text-[#000000] cursor-pointer'/>}
             {!userData ?<FaCircleUser onClick={() => setShowProfile(prev => !prev)  } className='w-[38px] h-[38px] text-[#000000] cursor-pointer' />: <div onClick={() => setShowProfile(prev => !prev)  } className='w-10 h-10 rounded-full bg-[#080808] text-white text-xl cursor-pointer flex items-center justify-center'>{userData?.user?.name?.slice(0,1)}</div> }
 
             <MdShoppingCart className='w-[38px] h-[38px] text-[#000000] hidden md:block cursor-pointer' />
             <p className='absolute hidden md:block w-[18px] h-[18px] items-center  justify-center bg-black px-[5px] py-0.5 text-[#f7e8e8] rounded-full text-[9px] top-2.5 right-[23px]'>10</p>
         </div>
         {showSearch && <div className='w-full h-20 bg-[#d8f6f9dd] absolute top-full left-0 right-0 flex items-center justify-center'>
-            <input placeholder='Search Here' type="text" className='lg:w-[50%] w-[90%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]'/>
+            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search Here' type="text" className='lg:w-[50%] w-[90%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]'/>
         </div>}
         {showProfile && <div className='absolute w-[220px] h-[150px] bg-[#000000d7] top-[110%] right-[4%] border border-[#aaa9a9] rounded-[10px] z-10'>
             <ul className='w-full h-full flex items-start justify-around flex-col text-[17px] py-2.5 text-white'>
