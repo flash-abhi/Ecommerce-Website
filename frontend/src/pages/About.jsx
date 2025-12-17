@@ -27,7 +27,7 @@ function About() {
       </div>
       <div className='w-full flex items-center justify-center flex-col gap-2.5'>
         <Title text1={'WHY'} text2={'CHOOSE US'}/>
-        <div className='w-[80%] flex items-center justi5ter lg:flex-ro10-col2.5'>
+        <div className='w-[80%] flex-wrap flex items-center justi5ter lg:flex-ro10-col2.5'>
 
           <div className='lg:w-[33%] w-[90%] h-[250px] border border-gray-100 flex items-center justify-center gap-5 flex-col  px-10 py-2.5 text-[white] backdrop-blur-[2px] bg-[#ffffff0b]'>
             <b className='text-[20px] font-semibold text-[#bff1f9]'>Quality Assurance</b>

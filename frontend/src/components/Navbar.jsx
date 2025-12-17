@@ -63,7 +63,7 @@ const Navbar = () => {
                 {!userData && <li className='w-full hover:bg-[#2f2f2f] px-[15px] py-2.5 cursor-pointer' onClick={()=>{ navigate("/login");setShowProfile(false)}}>Login</li>}
                 {userData && <li className='w-full hover:bg-[#2f2f2f] px-[15px] py-2.5 cursor-pointer' onClick={handleLogout}>Logout</li>}
                 <li className='w-full hover:bg-[#2f2f2f] px-[15px] py-2.5 cursor-pointer'>Orders</li>
-                <li className='w-full hover:bg-[#2f2f2f] px-[15px] py-2.5 cursor-pointer'onClick={() => navigate("/about")}>About</li>
+                <li className='w-full hover:bg-[#2f2f2f] px-[15px] py-2.5 cursor-pointer'onClick={() => {navigate("/about");setShowProfile(false);}}>About</li>
             </ul>
         </div>}
         <div className='w-full h-[90px] flex items-center justify-between px-5 fixed bottom-0 left-0 bg-[#b3cdcdec] lg:hidden'>

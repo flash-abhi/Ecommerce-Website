@@ -11,6 +11,7 @@ import About from './pages/About';
 import Collections from './pages/Collections';
 import Product from './pages/Product';
 import Contact from './pages/Contact';
+import ProductDetails from './pages/ProductDetails'
 const App = () => {
   const {userData} = useContext(userDataContext);
 
@@ -26,6 +27,7 @@ const App = () => {
         <Route path='/collection' element={userData?<Collections/>:<Navigate to={"/login"}/>}/>
         <Route path='/product' element={userData?<Product/>:<Navigate to={"/login"}/>}/>
         <Route path='/contact' element={userData?<Contact/>:<Navigate to={"/login"}/>}/>
+        <Route path='/productdetail/:productId' element={userData?<ProductDetails/>:<Navigate to={"/login"}/>}/>
         
     </Routes>
     </>
