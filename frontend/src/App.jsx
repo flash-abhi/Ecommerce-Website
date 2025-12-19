@@ -12,6 +12,8 @@ import Collections from './pages/Collections';
 import Product from './pages/Product';
 import Contact from './pages/Contact';
 import ProductDetails from './pages/ProductDetails'
+import Cart from './pages/Cart'
+import PlaceOrder from './pages/PlaceOrder'
 const App = () => {
   const {userData} = useContext(userDataContext);
   const location = useLocation();
@@ -28,6 +30,8 @@ const App = () => {
         <Route path='/product' element={userData?<Product/>:<Navigate to={"/login"}/>} state={{ from: location.pathname }}/>
         <Route path='/contact' element={userData?<Contact/>:<Navigate to={"/login"} state={{ from: location.pathname }}/>}/>
         <Route path='/productdetail/:productId' element={userData?<ProductDetails/>:<Navigate to={"/login"} state={{ from: location.pathname }}/>}/>
+        <Route path='/cart' element={userData?<Cart/>:<Navigate to={"/login"} state={{ from: location.pathname }}/>}/>
+        <Route path='/placeorder' element={userData?<PlaceOrder/>:<Navigate to={"/login"} state={{ from: location.pathname }}/>}/>
         
     </Routes>
     </>
