@@ -19,7 +19,7 @@ const Navbar = () => {
     // let [showSearch,setShowSearch] = useState(false);
     let [showProfile,setShowProfile] = useState(false);
     let {serverUrl} = useContext(authDataContext);
-    let {showSearch,setShowSearch,search,setSearch}= useContext(shopDataContext)
+    let {showSearch,setShowSearch,search,setSearch,getCartCount}= useContext(shopDataContext)
     // handle Logout 
     const handleLogout = async () => {
         try {
@@ -53,7 +53,7 @@ const Navbar = () => {
             {!userData ?<FaCircleUser onClick={() => setShowProfile(prev => !prev)  } className='w-[38px] h-[38px] text-[#000000] cursor-pointer' />: <div onClick={() => setShowProfile(prev => !prev)  } className='w-10 h-10 rounded-full bg-[#080808] text-white text-xl cursor-pointer flex items-center justify-center'>{userData?.user?.name?.slice(0,1)}</div> }
 
             <MdShoppingCart className='w-[38px] h-[38px] text-[#000000] hidden md:block cursor-pointer' />
-            <p className='absolute hidden md:block w-[18px] h-[18px] items-center  justify-center bg-black px-[5px] py-0.5 text-[#f7e8e8] rounded-full text-[9px] top-2.5 right-[23px]'>10</p>
+            <p className='absolute hidden md:block w-[18px] h-[18px] items-center  justify-center bg-black px-[5px] py-0.5 text-[#f7e8e8] rounded-full text-[9px] top-2.5 right-[23px]'>{getCartCount()}</p>
         </div>
         {showSearch && <div className='w-full h-20 bg-[#d8f6f9dd] absolute top-full left-0 right-0 flex items-center justify-center'>
             <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search Here' type="text" className='lg:w-[50%] w-[90%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]'/>
@@ -71,7 +71,7 @@ const Navbar = () => {
             <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><MdCollectionsBookmark className="w-7  h-7 text-[#000000c9] lg:hidden"onClick={() => navigate("/collection")}/>Collections</button>
             <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><RiContactsFill className="w-7  h-7 text-[#000000c9] lg:hidden" onClick={()=> navigate("/contact")}/>Contact</button>
             <button className='text-[#000000c9] flex items-center justify-center flex-col gap-0.5 cursor-pointer text-md'><MdShoppingCart className="w-7  h-7 text-[#000000c9] lg:hidden"/>Cart</button>
-            <p className='absolute w-[18px] h-[18px] flex items-center justify-center bg-white px-[5px] py-0.2 text-black font-semibold rounded-full text-[9px] top-2 right-[18px]'>10</p>
+            <p className='absolute w-[18px] h-[18px] flex items-center justify-center bg-white px-[5px] py-0.2 text-black font-semibold rounded-full text-[9px] top-2 right-[18px]'>{getCartCount()}</p>
         </div>
     </div>
   )

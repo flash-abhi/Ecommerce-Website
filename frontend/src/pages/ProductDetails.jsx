@@ -7,7 +7,7 @@ import RelatedProduct from "../components/RelatedProduct";
 
 const ProductDetails = () => {
   let { productId } = useParams();
-  let { products, currency } = useContext(shopDataContext);
+  let { products, currency, addToCart } = useContext(shopDataContext);
   let [productData, setProductData] = React.useState(false);
   const [image, setImage] = useState("");
   const [image1, setImage1] = useState("");
@@ -124,6 +124,7 @@ const ProductDetails = () => {
               ))}
             </div>
             <button
+            onClick={() => addToCart(productData._id, size)}
               className="text-[16px] active:bg-slate-500 cursor-pointer bg-[#495b61c9] py-2.5 px-5 rounded-2xl mt-2.5 border border-[#80808049] text-white shadow-md shadow-black"
             >
               {"Add to Cart"}
@@ -137,7 +138,7 @@ const ProductDetails = () => {
             </div>
         </div>
       </div>
-      <div className='w-full md:py-50 lg:py-0 py-30 min-h-[70vh] bg-linear-to-l from-[#141414] to-[#0c2025] flex items-start justify-start flex-col  overflow-x-hidden'>
+      <div className='w-full md:py-70 lg:py-0 py-50 min-h-[70vh] bg-linear-to-l from-[#141414] to-[#0c2025] flex items-start justify-start flex-col  overflow-x-hidden'>
 
     <div className='flex px-5  mt-[90px] lg:ml-20 ml-0  lg:mt-0  '>
 
