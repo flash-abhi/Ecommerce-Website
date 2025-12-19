@@ -8,6 +8,7 @@ import cors from "cors";
 import userRouter from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 dotenv.config();
 const port = process.env.PORT;
 //   console.log(port);
@@ -25,6 +26,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user/",userRouter);
 app.use("/api/product",productRoutes);
 app.use("/api/cart",cartRoutes);
+app.use("/api/order",orderRoutes);
 app.get("/", (req, res) => {
     res.send("Hello from server");
 });
