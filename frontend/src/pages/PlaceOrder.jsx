@@ -4,7 +4,7 @@ import { ClipLoader } from "react-spinners";
 import CartTotal from "../components/CartTotal";
 import razorpay from "../assets/Razorpay.jpg";
 import { useNavigate } from "react-router-dom";
-import { authDataContext } from "../context/authContext";
+import { authDataContext } from "../context/AuthContext";
 import { shopDataContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
