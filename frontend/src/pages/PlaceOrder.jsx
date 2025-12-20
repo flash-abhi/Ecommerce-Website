@@ -31,6 +31,27 @@ const PlaceOrder = () => {
     const value = e.target.value;
     setFormData((data) => ({ ...data, [name]: value }));
   };
+  const initPay = (order) => {
+    const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: order.amount,
+        currency : order.currency,
+        name: "Order Payment",
+        description: "Online payment mode using Razorpay",
+        order_id : order.id,
+        receipt: order.receipt,
+        handler: async (response) =>{
+            console.log(response)
+            const {data} = await axios.post(serverUrl + '/api/order/verifyrazorpay',response,{withCredentials:true})
+            if(data){
+                navigate("/order");
+                setCartItem({});
+            }
+        }
+    }
+    const rzp = new window.Razorpay(options)
+    rzp.open();
+  }
   const onSubmitHandler = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -98,7 +119,7 @@ const PlaceOrder = () => {
   };
 
   return (
-    <div className="w-screen min-h-screen bg-linear-to-l from-[#141414] to-[#0c2025] flex items-center justify-center flex-col md:flex-row gap-[50px]  relative">
+    <div className="w-screen min-h-screen py-20 bg-linear-to-l from-[#141414] to-[#0c2025] flex items-center justify-center flex-col md:flex-row gap-[50px]  relative">
       <div className="lg:w-[50%] w-full h-full flex items-center justify-center  lg:mt-0 mt-[90px]">
         <form onSubmit={onSubmitHandler}  className="lg:w-[70%] w-[95%] lg:h-[70%] h-full">
           <div className="py-2.5">
@@ -201,9 +222,9 @@ const PlaceOrder = () => {
           <div>
             <button
               type="submit"
-              className="text-[18px] active:bg-slate-500 cursor-pointer bg-[#3bcee848] py-2.5 px-[50px] rounded-2xl text-white flex items-center justify-center gap-5 absolute md:right-[10%] lg:right-[20%] bottom-[7%] right-[20%] left-[20%] border border-[#80808049] mt-5"
+              className="mx-20 md:mx-0 text-[18px] active:bg-slate-500 cursor-pointer bg-[#3bcee848] py-2.5 px-[50px] rounded-2xl text-white flex items-center justify-center gap-5 absolute md:right-[10%] lg:right-[20%] md:bottom-[15%] bottom-[10%]   border border-[#80808049] mt-5"
             >
-              {loading ? <ClipLoader size={20} color="white" /> : "PLACE ORDER"}
+              {loading ? <ClipLoader size={22} color="white" /> : "PLACE ORDER"}
             </button>
           </div>
         </form>
