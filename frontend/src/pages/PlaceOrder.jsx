@@ -222,7 +222,7 @@ const PlaceOrder = () => {
           <div>
             <button
               type="submit"
-              className="mx-20 md:mx-0 text-[18px] active:bg-slate-500 cursor-pointer bg-[#3bcee848] py-2.5 px-[50px] rounded-2xl text-white flex items-center justify-center gap-5 absolute md:right-[10%] lg:right-[20%] md:bottom-[15%] bottom-[10%]   border border-[#80808049] mt-5"
+              className="mx-20 md:mx-0 text-[18px] active:bg-slate-500 cursor-pointer bg-[#3bcee848] py-2.5 px-[50px] rounded-2xl text-white flex items-center justify-center gap-5 absolute md:right-[10%] lg:right-[20%] md:bottom-[15%] bottom-[10%] lg:bottom-[5%]   border border-[#80808049] mt-5"
             >
               {loading ? <ClipLoader size={22} color="white" /> : "PLACE ORDER"}
             </button>

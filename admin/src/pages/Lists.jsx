@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import SideBar from './../component/SideBar';
-import Navbar from './../component/Navbar';
+import SideBar from '../component/SideBar';
+import NavBar from '../component/NavBar';
 import { authDataContext } from '../context/AuthContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -35,7 +35,7 @@ const Lists = () => {
   return (
     <div className='w-screen min-h-screen bg-linear-to-l from-[#141414] to-[#0c2025] text-white'>
       <div className='w-full h-full flex items-center justify-start'>
-        <Navbar/>
+        <NavBar/>
         <SideBar/>
         <div className='w-[82%] h-full lg:ml-80 md:ml-[230px] mt-[70px] flex flex-col gap-[30px] overflow-x-hidden py-[50px] ml-[100px]'>
           <div className='w-[400px] h-[50px] text-[28px] md:text-[40px] mb-5 text-white'>All Listed Products</div>
