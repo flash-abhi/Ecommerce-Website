@@ -6,7 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 
 import { ClipLoader } from "react-spinners";
-import { authDataContext } from "../context/authContext";
+import { authDataContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { auth, provider } from "../utils/firebase";
 import { signInWithPopup } from "firebase/auth";
