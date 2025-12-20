@@ -1,6 +1,6 @@
 import React from 'react'
 import NavBar from "../component/NavBar"
-import Sidebar from '../component/Sidebar'
+import Sidebar from '../component/SideBar'
 import { useState } from 'react'
 import { useContext } from 'react'
 import { authDataContext } from '../context/AuthContext'
