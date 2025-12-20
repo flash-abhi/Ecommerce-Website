@@ -15,7 +15,7 @@ const port = process.env.PORT;
 const app = express();
 
 app.use(cors({
-    origin: ["https://ecommerce-frontend-qz0p.onrender.com","http://localhost:5174"],
+    origin: ["https://ecommerce-frontend-qz0p.onrender.com","https://ecommerce-admin-0ugr.onrender.com"],
     credentials: true,
 }));
 
