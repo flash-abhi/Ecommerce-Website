@@ -10,7 +10,7 @@ import { MdShoppingCart } from "react-icons/md";
 import { userDataContext } from '../context/UserContext';
 import axios from 'axios';
 import logo from "../assets/logo.png"
-import { authDataContext } from '../context/authContext';
+import { authDataContext } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import { shopDataContext } from '../context/ShopContext';
 const Navbar = () => {
